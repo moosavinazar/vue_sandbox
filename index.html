@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .div {
+            background: black;
+            color: white;
+            padding: 10px;
+        }
+        .red {
+            background: red;
+        }
+        .blue {
+            background: blue;
+        }
+
+        .fade-enter-active,
+        .fade-leave-active {
+            transition: opacity 0.5s ease;
+        }
+
+        .fade-enter-form,
+        .fade-leave-to {
+            opacity: 0;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div id="app">
+        <img v-bind:src="src" :alt="alt">
+        <hr>
+        <span v-text="text"></span>
+        <hr>
+        <span v-html="html"></span>
+        <hr>
+        <span v-if="number > 5"> {{number}} </span>
+        <hr>
+        <span v-if="number < 5"> if </span>
+        <span v-else> else </span>
+        <hr>
+        <span v-if="number < 10"> if </span>
+        <span v-else-if="number = 10"> else-if </span>
+        <span v-else> else </span>
+        <hr>
+        <span v-show="isStatus">show</span>
+        <hr>
+        <span v-if="checkNumber()"> {{number}} </span>
+        <hr>
+        <p v-for="name in names"> {{name}} </p>
+        <hr>
+        <p v-for="(name, index) in names"> {{index}} / {{name}} </p>
+        <hr>
+        <p v-for="(name, index) in names" :key="index"> {{index}} / {{name}} </p>
+        <hr>
+        <p v-for="(item, index) in list" :key="index"> {{index}} / {{item.name}} - {{item.age}} </p>
+        <hr>
+        <h1> {{name}} </h1>
+        <hr>
+        <h1 v-once> {{name}} </h1>
+        {{update()}}
+        <hr>
+        <h1> {{text}} </h1>
+        <button v-on:click="updateName">change</button>
+        <hr>
+        <h1> {{alt}} </h1>
+        <button @click.right="changeName">change</button>
+        <hr>
+        <button @click="testEvent($event, 'moosavi')">test</button>
+        <hr>
+        <input v-model="name2" type="text">
+        <p> {{name2}} </p>
+        <hr>
+        <input v-model.lazy="name3" type="text">
+        <p> {{name3}} </p>
+        <hr>
+        <input v-model.number="name4" type="text">
+        <p> {{name4}} </p>
+        <hr>
+        <input v-model.trim="name5" type="text">
+        <p> {{name5}} </p>
+        <hr>
+        <div class="div" :class="{red:true, blue:false}">
+            moosavi
+        </div>
+        <hr>
+        <div class="div" :class="{red:redColor}" @click="changeColor">
+            moosavi
+        </div>
+        <hr>
+        <div class="div" :class="{red:redColor}" @click="this.redColor = !this.redColor;">
+            moosavi
+        </div>
+        <hr>
+        <div class="div" :class="[redClass, blueClass]">
+            moosavi
+        </div>
+        <hr>
+        <div 
+        class="div" 
+        :class="[colors.redClass, colors.blueClass]"
+        :style="{ fontSize: '20px', border: '5px solid black' }"
+        >
+            moosavi
+        </div>
+        <hr>
+        <div 
+        class="div" 
+        :class="[colors.redClass, colors.blueClass]"
+        :style="newStyle"
+        >
+            moosavi
+        </div>
+        <hr>
+        <input v-model="name6" type="text">
+        <button @click="toggleActive">Chane Active</button>
+        <p>Name: {{upperCase()}} </p>
+        <!-- <p>Active: {{isActive()}} </p> -->
+        <p>Active: {{isActive}} </p>
+        <hr>
+        <h1 ref="title">moosavi</h1>
+        <button @click="button">button</button>
+        <hr>
+        <form action="">
+            <label>Name</label>
+            <input v-model="formData.name" type="text">
+            <br>
+            <label>Message</label>
+            <textarea v-model="formData.message" cols="30" rows="10"></textarea>
+            <br>
+            <label>checkbox1</label>
+            <input v-model="formData.checkbox1" type="checkbox">
+            <label>checkbox2</label>
+            <input v-model="formData.checkbox2" type="checkbox">
+            <br>
+            {{formData.checkbox1}} {{formData.checkbox2}}
+            <br>
+            <label>checkbox1</label>
+            <input v-model="formData.checkbox" value="ch1" type="checkbox">
+            <label>checkbox2</label>
+            <input v-model="formData.checkbox" value="ch2" type="checkbox">
+            <br>
+            {{formData.checkbox}}
+            <br>
+            <label>radio1</label>
+            <input v-model="formData.radio" value="radio1" type="radio">
+            <label>radio2</label>
+            <input v-model="formData.radio" value="radio2" type="radio">
+            <br>
+            {{formData.radio}}
+            <br>
+            <select v-model="formData.lang">
+                <option v-for="(lang, index) in langs" :key="index">{{lang}}</option>
+            </select>
+            <br>
+            <select v-model="formData.langs" multiple>
+                <option v-for="(lang, index) in langs" :key="index">{{lang}}</option>
+            </select>
+            <br>
+            <button @click.prevent="submitForm" >submit</button>
+            <br>
+            <button @click.prevent="show = !show">toggle</button>
+            <transition name="fade">
+                <p v-if="show">hello</p>
+            </transition>
+        </form>
+    </div>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+</html>
